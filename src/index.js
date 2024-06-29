@@ -4,7 +4,7 @@ import axios from 'axios'
 
 dotenv.config();
 
-const openaiKey = process.env.OPENAI_API_KEY;
+const openaiKey = process.env.API_KEY;
 const imagePath = "./images/walk.jpg"
 
 // Function to encode the image
@@ -33,7 +33,7 @@ const payload = {
         {
           type: "image_url",
           image_url: {
-            url: `data:image/jpeg;base64,${base64Image}`
+            "url": "https://scontent.fsyd3-2.fna.fbcdn.net/v/t39.30808-6/306324509_458138779685264_4419759373600541515_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=foVNrNkzhSYQ7kNvgExBJEU&_nc_ht=scontent.fsyd3-2.fna&oh=00_AYCaAbnwMG0FUhFIhnB7zI9rKTTOjV-nSWOUTjBcz8nc1A&oe=66854408"
           }
         }
       ]
@@ -44,7 +44,7 @@ const payload = {
 
 axios.post("https://api.openai.com/v1/chat/completions", payload, { headers })
   .then(response => {
-    console.log(response.data);
+    x = response;
   })
   .catch(error => {
     console.error("Error fetching completion:", error.message);
