@@ -53,13 +53,16 @@ export default function App() {
       console.log(base64Image);
       
       try {
-        axios.post('http://localhost:3200/photo', { imageBase64: base64Image })
+        const base64Image = '...'; // Replace with your actual base64 image data
+      
+        axios.post('https://thin-ideas-laugh.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
           })
           .catch(error => {
             console.error('Error:', error);
           });
+      
       } catch (error) {
         console.error('Error uploading the image:', error);
       }
