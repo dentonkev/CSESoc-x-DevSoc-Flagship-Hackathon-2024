@@ -38,6 +38,7 @@ const payload = {
                 Fat: 
                 Sodium: 
                 Sugars: 
+                Servings: 
                 Health Rating (Out of 5): 
                 `
         },
