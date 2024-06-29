@@ -5,7 +5,7 @@ import axios from 'axios'
 dotenv.config();
 
 const openaiKey = process.env.API_KEY;
-const imagePath = "./images/walk.jpg"
+const imagePath = "./images/burger.png"
 
 // Function to encode the image
 const encodeImage = (imagePath) => {
@@ -28,12 +28,23 @@ const payload = {
       content: [
         {
           type: "text",
-          text: "what is happening in this images, short response"
+          text: `
+                what food type is this and macros (just a number no ranges)? +
+                response format: 
+                food:
+                Calories:
+                Protein: 
+                Carbohydrates:
+                Fat: 
+                Sodium: 
+                Sugars: 
+                Health Rating (Out of 5): 
+                `
         },
         {
           type: "image_url",
           image_url: {
-            "url": "https://scontent.fsyd3-2.fna.fbcdn.net/v/t39.30808-6/306324509_458138779685264_4419759373600541515_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=foVNrNkzhSYQ7kNvgExBJEU&_nc_ht=scontent.fsyd3-2.fna&oh=00_AYCaAbnwMG0FUhFIhnB7zI9rKTTOjV-nSWOUTjBcz8nc1A&oe=66854408"
+            "url": `data:image/jpeg;base64,${base64Image}`
           }
         }
       ]
@@ -44,7 +55,9 @@ const payload = {
 
 axios.post("https://api.openai.com/v1/chat/completions", payload, { headers })
   .then(response => {
-    x = response;
+    fs.writeFileSync('text.txt', JSON.stringify(response.data.choices[0].message));
+
+    console.log(response.data.choices[0].message)
   })
   .catch(error => {
     console.error("Error fetching completion:", error.message);
