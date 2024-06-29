@@ -1,7 +1,10 @@
 import express from 'express';
 import morgan from 'morgan';
-import { authenticateUser } from './routes/auth.js'
 import { getImageInfo } from './index.js';
+import { authenticateUser } from './routes/auth.js';
+
+const PORT = parseInt(process.env.PORT || config.port);
+const HOST = process.env.IP || 'localhost';
 
 const app = express()
 app.use(morgan('dev'));
@@ -41,4 +44,8 @@ app.use((req, res) => {
       4. You've forgotten a leading slash (/), e.g. you have posts/list instead
          of /posts/list in your server.ts or test file
   `;
+});
+
+const server = app.listen(PORT, HOST, () => {
+  console.log(`⚡️ Server started on port ${PORT} at ${HOST}`);
 });
