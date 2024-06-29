@@ -1,7 +1,8 @@
-import { CameraView, useCameraPermissions } from 'expo-camera';
-import { useState, useRef } from 'react';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Import Ionicons for icons
+import axios, { AxiosError } from 'axios';
+import { CameraView, useCameraPermissions } from 'expo-camera';
+import { useRef, useState } from 'react';
+import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function App() {
   const [facing, setFacing] = useState('back');
@@ -29,14 +30,42 @@ export default function App() {
     setFacing((current) => (current === 'back' ? 'front' : 'back'));
   };
 
+  const getBase64FromUrl = async (url: any) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
   const takePicture = async () => {
     if (!cameraRef.current) return;
 
     try {
       const photo = await cameraRef.current.takePictureAsync();
       setCapturedPhoto(photo.uri);
+      const base64Image = await getBase64FromUrl(photo.uri);
+      console.log(base64Image);
+      
+      try {
+        axios.post('http://localhost:3200/photo', { imageBase64: base64Image })
+          .then(response => {
+            console.log('Response:', response.data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      } catch (error) {
+        console.error('Error uploading the image:', error);
+      }
       setShowCamera(false); // Hide camera view after capturing photo
     //   await sendToBackend(photo.uri); // Send captured photo to backend
+      await sendToBackend(base64Image)
     } catch (error) {
       console.error('Failed to take picture:', error);
     }

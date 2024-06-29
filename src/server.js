@@ -1,12 +1,14 @@
+import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import { getImageInfo } from './index.js';
 
-const PORT = parseInt(3200);
+const PORT = 3200;
 const HOST = 'localhost';
 
 const app = express()
 app.use(morgan('dev'));
+app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -17,6 +19,21 @@ app.get('/photo', async (req, res) => {
   const imageBase64 = req.query.imageBase64;
   const info = await getImageInfo(imageBase64);
   res.send(info);
+});
+
+app.post('/photo', async (req, res) => {
+  const { imageBase64 } = req.body;
+  
+  if (!imageBase64) {
+    return res.status(400).send('Image base64 data is required.');
+  }
+
+  try {
+    const info = await getImageInfo(imageBase64);
+    res.send(info);
+  } catch (error) {
+    res.status(500).send('Error processing image.');
+  }
 });
 
 app.use((req, res) => {
