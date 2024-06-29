@@ -1,1 +1,1 @@
-{"role":"assistant","content":"food: Beef Lasagne\nCalories: 625\nProtein: 38g\nCarbohydrates: 54g\nFat: 29g\nSodium: 1160mg\nSugars: 7g\nServings: 2\nHealth Rating (Out of 5): 3\n\n"}
+{"role":"assistant","content":"Food: Cheeseburger\nCalories: 300\nProtein: 15 g\nCarbohydrates: 33 g\nFat: 12 g\nSodium: 720 mg\nSugars: 7 g\nServings: 1\nHealth Rating (Out of 5): 2"}

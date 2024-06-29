@@ -1,19 +1,33 @@
 import dotenv from 'dotenv'
+import {promises as f } from 'fs'
 import fs from 'fs'
 import axios from 'axios'
+import convert from 'heic-convert';
 
 dotenv.config();
 
 const openaiKey = process.env.API_KEY;
-const imagePath = "./images/burger.png"
+const imagePath = "./images/las.png"
+
+async function change(path) {
+  const inputBuffer = await f.readFile(path);
+  const outputBuffer = await convert({
+    buffer: inputBuffer, 
+    format: 'PNG'      
+  });
+
+  await f.writeFile("./images/h.png", outputBuffer);
+  return "./images/h.png"
+};
 
 // Function to encode the image
-const encodeImage = (imagePath) => {
-  const image = fs.readFileSync(imagePath);
+const encodeImage = (p) => {
+  const image = fs.readFileSync(p);
   return image.toString('base64');
 };
 
-const base64Image = encodeImage(imagePath);
+const path = change(imagePath);
+const base64Image = encodeImage(path);
 
 const headers = {
   "Content-Type": "application/json",
