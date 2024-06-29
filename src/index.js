@@ -1,6 +1,6 @@
-import dotenv from 'dotenv'
-import fs from 'fs'
-import axios from 'axios'
+import axios from 'axios';
+import dotenv from 'dotenv';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -38,6 +38,7 @@ const payload = {
                 Fat: 
                 Sodium: 
                 Sugars: 
+                Servings:
                 Health Rating (Out of 5): 
                 `
         },
