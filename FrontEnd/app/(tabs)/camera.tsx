@@ -1,5 +1,5 @@
-import { Ionicons } from '@expo/vector-icons'; // Import Ionicons for icons
-import axios, { AxiosError } from 'axios';
+import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRef, useState } from 'react';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -34,7 +34,7 @@ export default function App() {
     setFacing((current) => (current === 'back' ? 'front' : 'back'));
   };
 
-  const getBase64FromUrl = async (url: any) => {
+  const getBase64FromUrl = async (url) => {
     const response = await fetch(url);
     const blob = await response.blob();
     return new Promise((resolve, reject) => {
@@ -49,19 +49,23 @@ export default function App() {
 
   const takePicture = async () => {
     if (!cameraRef.current) return;
-
+  
     try {
       const photo = await cameraRef.current.takePictureAsync();
       setCapturedPhoto(photo.uri);
       const base64Image = await getBase64FromUrl(photo.uri);
-      // console.log(base64Image);
       
       try {      
-        axios.post('https://crazy-horses-grow.loca.lt/photo', { imageBase64: base64Image })
+        axios.post('https://dark-ducks-feel.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
-            setNutritionData(response.data.message);
-            setDrawerVisible(true);
+            if (Object.keys(response.data.message).length > 0) {
+              setNutritionData(response.data.message);
+              setDrawerVisible(true);
+            } else {
+              // Handle case where message is an empty object
+              alert("Please take a picture of food.");
+            }
           })
           .catch(error => {
             console.error('Error:', error);
@@ -75,6 +79,7 @@ export default function App() {
       console.error('Failed to take picture:', error);
     }
   };
+  
 
   const retakePicture = () => {
     setCapturedPhoto(null); // Clear captured photo
@@ -105,12 +110,12 @@ export default function App() {
         </CameraView>
       ) : (
         <View style={styles.camera}>
-          <Image source={{ uri: capturedPhoto }} style={{ flex: 1 }} />
           <TouchableOpacity style={styles.retakeButton} onPress={retakePicture}>
-            <Text style={styles.text}>Retake</Text>
+            <Text style={styles.retakeButtonText}>Take Another Photo</Text>
           </TouchableOpacity>
+          <Image source={{ uri: capturedPhoto }} style={{ flex: 1 }} />
           {nutritionData && ( 
-          <BottomDrawer height={300} isVisible={drawerVisible} onClose={closeDrawer}>
+            <BottomDrawer height={300} isVisible={drawerVisible} onClose={closeDrawer}>
               <NutritionCard data={nutritionData} />
             </BottomDrawer>
           )}
@@ -142,14 +147,16 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   retakeButton: {
-    position: 'absolute',
-    bottom: 30,
-    width: '100%',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  position: 'absolute',
+  top: 50,
+  left: 20,
+  backgroundColor: 'rgba(0, 0, 0, 0.5)', // Same as other buttons
+  borderRadius: 50,
+  padding: 15,
+  zIndex: 1,
+},
+  retakeButtonText: {
     color: 'white',
+    textAlign: 'center',
   },
 });
