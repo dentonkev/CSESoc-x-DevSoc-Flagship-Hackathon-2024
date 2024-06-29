@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import { authenticateUser } from './routes/auth.js'
+import { getImageInfo } from './index.js';
 
 const app = express()
 app.use(morgan('dev'));
@@ -12,7 +13,7 @@ app.get('/', (req, res) => {
 
 app.post('/photo', (req, res) => {
   const { name, password } = req.body;
-  const userId = authenticateUser(name, password)
+  const userId = authenticateUser(name, password);
 
   if (!userId) {
     return res.status(401).json({ error: 'Invalid credentials' });
@@ -21,13 +22,10 @@ app.post('/photo', (req, res) => {
 });
 
 app.get('/photo', (req, res) => {
-  const timetableId = req.query.timetableId;
-  const timetable = getTimetable(timetableId)
+  const imageBase64 = req.query.imageBase64;
 
-  if (!timetable) {
-    return res.status(400).json({ error: 'Invalid input' });
-  }
-  
+  const info = getImageInfo(imageBase64);
+
   return res.json(timetable);
 });
 
