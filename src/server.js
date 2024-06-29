@@ -2,14 +2,17 @@ import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
 import { getImageInfo } from './index.js';
+import bodyParser from 'body-parser';
 
 const PORT = 3200;
 const HOST = 'localhost';
 
 const app = express()
+
 app.use(morgan('dev'));
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

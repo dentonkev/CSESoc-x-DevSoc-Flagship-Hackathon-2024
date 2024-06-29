@@ -6,11 +6,12 @@ import { convertToObj, change } from './helper.js';
 dotenv.config();
 
 const openaiKey = process.env.API_KEY;
-const imagePath = "./images/burger.png"
+// const imagePath = "./images/burger.png"
 
-export const getImageInfo = async (imageBase64) => {
-  const path = await change(imagePath);
-  const base64Image = encodeImage(path);
+export const getImageInfo = async (base64Image) => {
+  fs.writeFileSync("text.txt", base64Image)
+  // const path = await change(imagePath);
+  // const base64Image = encodeImage(path);
 
   const headers = {
     "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export const getImageInfo = async (imageBase64) => {
           {
             type: "image_url",
             image_url: {
-              "url": `data:image/jpeg;base64,${base64Image}`
+              "url": base64Image
             }
           }
         ]
@@ -72,7 +73,7 @@ export const getImageInfo = async (imageBase64) => {
 }
 
 // Function to encode the image
-const encodeImage = (p) => {
-  const image = fs.readFileSync(p);
-  return image.toString('base64');
-};
+// const encodeImage = (p) => {
+//   const image = fs.readFileSync(p);
+//   return image.toString('base64');
+// };

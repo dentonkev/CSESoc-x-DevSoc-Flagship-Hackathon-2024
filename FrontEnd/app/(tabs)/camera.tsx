@@ -50,12 +50,10 @@ export default function App() {
       const photo = await cameraRef.current.takePictureAsync();
       setCapturedPhoto(photo.uri);
       const base64Image = await getBase64FromUrl(photo.uri);
-      console.log(base64Image);
+      // console.log(base64Image);
       
-      try {
-        const base64Image = '...'; // Replace with your actual base64 image data
-      
-        axios.post('https://thin-ideas-laugh.loca.lt/photo', { imageBase64: base64Image })
+      try {      
+        axios.post('https://loud-hands-trade.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
           })
