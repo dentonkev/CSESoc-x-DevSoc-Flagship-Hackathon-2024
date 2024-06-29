@@ -1,1 +1,1 @@
-{"role":"assistant","content":"food: Beef Lasagne\nCalories: 625\nProtein: 38g\nCarbohydrates: 54g\nFat: 29g\nSodium: 1160mg\nSugars: 7g\nServings: 2\nHealth Rating (Out of 5): 3\n\n"}
+{"role":"assistant","content":"Food: Dried Apricots\nCalories: 241\nProtein: 3\nCarbohydrates: 63\nFat: 0\nSodium: 10\nSugars: 53\nServings: 1 cup\nHealth Rating (Out of 5): 4"}

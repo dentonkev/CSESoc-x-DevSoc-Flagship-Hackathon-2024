@@ -1,19 +1,22 @@
 import dotenv from 'dotenv'
 import fs from 'fs'
 import axios from 'axios'
+import { convertToObj, change } from './helper.js';
 
 dotenv.config();
 
 const openaiKey = process.env.API_KEY;
-const imagePath = "./images/burger.png"
+const imagePath = "./images/yo.heic"
+// /folder/subfolder/resource.png
 
 // Function to encode the image
-const encodeImage = (imagePath) => {
-  const image = fs.readFileSync(imagePath);
+const encodeImage = (p) => {
+  const image = fs.readFileSync(p);
   return image.toString('base64');
 };
 
-const base64Image = encodeImage(imagePath);
+const path = await change(imagePath);
+const base64Image = encodeImage(path);
 
 const headers = {
   "Content-Type": "application/json",
@@ -29,7 +32,7 @@ const payload = {
         {
           type: "text",
           text: `
-                What food type is this and macros (just a number no ranges)? 
+                What food type is this and macros (just a number no ranges)?  If it is not a food, then return only the string "None"
 
                 response format: 
                 Food:
