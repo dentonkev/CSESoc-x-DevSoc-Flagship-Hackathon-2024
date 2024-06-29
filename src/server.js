@@ -1,10 +1,9 @@
 import express from 'express';
 import morgan from 'morgan';
 import { getImageInfo } from './index.js';
-import { authenticateUser } from './routes/auth.js';
 
-const PORT = parseInt(process.env.PORT || config.port);
-const HOST = process.env.IP || 'localhost';
+const PORT = parseInt(3200);
+const HOST = 'localhost';
 
 const app = express()
 app.use(morgan('dev'));
@@ -14,15 +13,15 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/photo', (req, res) => {
-  const { name, password } = req.body;
-  const userId = authenticateUser(name, password);
+// app.post('/photo', (req, res) => {
+//   const { name, password } = req.body;
+//   const userId = authenticateUser(name, password);
 
-  if (!userId) {
-    return res.status(401).json({ error: 'Invalid credentials' });
-  }
-  return res.json(userId);
-});
+//   if (!userId) {
+//     return res.status(401).json({ error: 'Invalid credentials' });
+//   }
+//   return res.json(userId);
+// });
 
 app.get('/photo', (req, res) => {
   const imageBase64 = req.query.imageBase64;
@@ -44,6 +43,7 @@ app.use((req, res) => {
       4. You've forgotten a leading slash (/), e.g. you have posts/list instead
          of /posts/list in your server.ts or test file
   `;
+  res.status(404).send(error);
 });
 
 const server = app.listen(PORT, HOST, () => {
