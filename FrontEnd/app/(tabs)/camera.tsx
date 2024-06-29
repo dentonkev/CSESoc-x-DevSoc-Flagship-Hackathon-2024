@@ -57,7 +57,7 @@ export default function App() {
       // console.log(base64Image);
       
       try {      
-        axios.post('https://big-rivers-remain.loca.lt/photo', { imageBase64: base64Image })
+        axios.post('https://crazy-horses-grow.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
             setNutritionData(response.data.message);
@@ -109,9 +109,11 @@ export default function App() {
           <TouchableOpacity style={styles.retakeButton} onPress={retakePicture}>
             <Text style={styles.text}>Retake</Text>
           </TouchableOpacity>
+          {nutritionData && ( 
           <BottomDrawer height={300} isVisible={drawerVisible} onClose={closeDrawer}>
-            <NutritionCard data={nutritionData} />
-          </BottomDrawer>
+              <NutritionCard data={nutritionData} />
+            </BottomDrawer>
+          )}
         </View>
       )}
     </View>
