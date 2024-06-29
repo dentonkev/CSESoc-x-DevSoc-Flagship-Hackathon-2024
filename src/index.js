@@ -7,6 +7,7 @@ dotenv.config();
 
 const openaiKey = process.env.API_KEY;
 // const imagePath = "./images/burger.png"
+// const imagePath = "./images/burger.png"
 
 export const getImageInfo = async (base64Image) => {
   // const path = await change(imagePath);
@@ -43,7 +44,7 @@ export const getImageInfo = async (base64Image) => {
           {
             type: "image_url",
             image_url: {
-              "url": `data:image/jpeg;base64,${base64Image}`
+              "url": base64Image
             }
           }
         ]
@@ -72,6 +73,10 @@ export const getImageInfo = async (base64Image) => {
 }
 
 // Function to encode the image
+// const encodeImage = (p) => {
+//   const image = fs.readFileSync(p);
+//   return image.toString('base64');
+// };
 // const encodeImage = (p) => {
 //   const image = fs.readFileSync(p);
 //   return image.toString('base64');
