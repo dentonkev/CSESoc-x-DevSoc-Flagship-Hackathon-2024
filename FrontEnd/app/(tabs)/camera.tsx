@@ -53,7 +53,7 @@ export default function App() {
       // console.log(base64Image);
       
       try {      
-        axios.post('https://loud-hands-trade.loca.lt/photo', { imageBase64: base64Image })
+        axios.post('https://bright-swans-float.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
           })
