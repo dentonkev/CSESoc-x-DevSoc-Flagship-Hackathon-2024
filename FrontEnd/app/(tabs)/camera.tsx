@@ -3,6 +3,8 @@ import axios, { AxiosError } from 'axios';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRef, useState } from 'react';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NutritionCard } from '@/components/Card';
+import { BottomDrawer } from '@/components/BottomDrawer';
 
 export default function App() {
   const [facing, setFacing] = useState('back');
@@ -10,6 +12,8 @@ export default function App() {
   const [capturedPhoto, setCapturedPhoto] = useState(null);
   const [showCamera, setShowCamera] = useState(true); // State to control camera view
   const cameraRef = useRef(null);
+  const [nutritionData, setNutritionData] = useState(null);
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   if (!permission) {
     // Camera permissions are still loading.
@@ -53,9 +57,11 @@ export default function App() {
       // console.log(base64Image);
       
       try {      
-        axios.post('https://common-squids-retire.loca.lt/photo', { imageBase64: base64Image })
+        axios.post('https://big-rivers-remain.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
+            setNutritionData(response.data.message);
+            setDrawerVisible(true);
           })
           .catch(error => {
             console.error('Error:', error);
@@ -73,6 +79,12 @@ export default function App() {
   const retakePicture = () => {
     setCapturedPhoto(null); // Clear captured photo
     setShowCamera(true); // Show camera view again
+    setNutritionData(null);
+    setDrawerVisible(false);
+  };
+
+  const closeDrawer = () => {
+    setDrawerVisible(false);
   };
 
   return (
@@ -97,6 +109,9 @@ export default function App() {
           <TouchableOpacity style={styles.retakeButton} onPress={retakePicture}>
             <Text style={styles.text}>Retake</Text>
           </TouchableOpacity>
+          <BottomDrawer height={300} isVisible={drawerVisible} onClose={closeDrawer}>
+            <NutritionCard data={nutritionData} />
+          </BottomDrawer>
         </View>
       )}
     </View>
