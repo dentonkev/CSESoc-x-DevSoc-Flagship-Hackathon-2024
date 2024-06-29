@@ -36,7 +36,7 @@ export default function App() {
       const photo = await cameraRef.current.takePictureAsync();
       setCapturedPhoto(photo.uri);
       setShowCamera(false); // Hide camera view after capturing photo
-      await sendToBackend(photo.uri); // Send captured photo to backend
+    //   await sendToBackend(photo.uri); // Send captured photo to backend
     } catch (error) {
       console.error('Failed to take picture:', error);
     }
@@ -86,7 +86,7 @@ export default function App() {
               <Ionicons name="camera-reverse" size={32} color="white" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconButton} onPress={takePicture}>
-              <Ionicons name="camera" size={32} color="white" />
+              <Ionicons name="radio-button-off-outline" size={32} color="white" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.iconButton} onPress={() => {}}>
               <Ionicons name="images-outline" size={32} color="white" />
