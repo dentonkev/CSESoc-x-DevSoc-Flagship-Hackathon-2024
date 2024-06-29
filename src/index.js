@@ -29,16 +29,17 @@ const payload = {
         {
           type: "text",
           text: `
-                what food type is this and macros (just a number no ranges)? +
+                What food type is this and macros (just a number no ranges)? 
+
                 response format: 
-                food:
+                Food:
                 Calories:
                 Protein: 
                 Carbohydrates:
                 Fat: 
                 Sodium: 
                 Sugars: 
-                Servings:
+                Servings: 
                 Health Rating (Out of 5): 
                 `
         },

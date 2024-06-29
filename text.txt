@@ -1,1 +1,1 @@
-{"index":0,"message":{"role":"assistant","content":"food: Cheeseburger\nCalories: 300\nProtein: 15g\nCarbohydrates: 33g\nFat: 12g\nSodium: 720mg\nSugars: 7g\nHealth Rating (Out of 5): 2"},"logprobs":null,"finish_reason":"stop"}
+{"role":"assistant","content":"food: Beef Lasagne\nCalories: 625\nProtein: 38g\nCarbohydrates: 54g\nFat: 29g\nSodium: 1160mg\nSugars: 7g\nServings: 2\nHealth Rating (Out of 5): 3\n\n"}
