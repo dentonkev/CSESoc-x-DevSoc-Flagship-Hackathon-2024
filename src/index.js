@@ -1,7 +1,7 @@
 import dotenv from 'dotenv'
 import fs from 'fs'
 import axios from 'axios'
-import { convertToObj, change } from './helper.js';
+import { convertToObj } from './helper.js';
 
 dotenv.config();
 

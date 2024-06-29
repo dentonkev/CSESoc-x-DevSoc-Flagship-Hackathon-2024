@@ -53,7 +53,7 @@ export default function App() {
       // console.log(base64Image);
       
       try {      
-        axios.post('https://bright-swans-float.loca.lt/photo', { imageBase64: base64Image })
+        axios.post('https://common-squids-retire.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
           })
@@ -65,40 +65,8 @@ export default function App() {
         console.error('Error uploading the image:', error);
       }
       setShowCamera(false); // Hide camera view after capturing photo
-    //   await sendToBackend(photo.uri); // Send captured photo to backend
-      await sendToBackend(base64Image)
     } catch (error) {
       console.error('Failed to take picture:', error);
-    }
-  };
-
-  const sendToBackend = async (photoUri) => {
-    try {
-      const formData = new FormData();
-      formData.append('photo', {
-        uri: photoUri,
-        name: 'photo.jpg',
-        type: 'image/jpeg',
-      });
-
-      const response = await fetch('YOUR_BACKEND_API_ENDPOINT', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          // Add any headers your backend requires, e.g., authorization token
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to upload photo');
-      }
-
-      // Handle success if needed
-      console.log('Photo uploaded successfully');
-    } catch (error) {
-      console.error('Error uploading photo:', error);
-      // Handle error
     }
   };
 
