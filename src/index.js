@@ -6,7 +6,7 @@ import { convertToObj, change } from './helper.js';
 dotenv.config();
 
 const openaiKey = process.env.API_KEY;
-const imagePath = "./images/yo.heic"
+const imagePath = "./images/burger.png"
 
 export const getImageInfo = async (imageBase64) => {
   const path = await change(imagePath);
@@ -52,11 +52,12 @@ export const getImageInfo = async (imageBase64) => {
     max_tokens: 300
   };
 
-  axios.post("https://api.openai.com/v1/chat/completions", payload, { headers })
-    .then(response => {
-      fs.writeFileSync('text.txt', JSON.stringify(response.data.choices[0].message));
+  let message; 
 
-      console.log(response.data.choices[0].message)
+  await axios.post("https://api.openai.com/v1/chat/completions", payload, { headers })
+    .then(response => {
+      message = convertToObj(response.data.choices[0].message.content)
+      // return convertToObj(response.data.choices[0].message)
     })
     .catch(error => {
       console.error("Error fetching completion:", error.message);
@@ -66,6 +67,8 @@ export const getImageInfo = async (imageBase64) => {
       }
     }
   );
+
+  return { message }
 }
 
 // Function to encode the image

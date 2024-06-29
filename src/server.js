@@ -13,22 +13,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-// app.post('/photo', (req, res) => {
-//   const { name, password } = req.body;
-//   const userId = authenticateUser(name, password);
-
-//   if (!userId) {
-//     return res.status(401).json({ error: 'Invalid credentials' });
-//   }
-//   return res.json(userId);
-// });
-
-app.get('/photo', (req, res) => {
+app.get('/photo', async (req, res) => {
   const imageBase64 = req.query.imageBase64;
-
-  const info = getImageInfo(imageBase64);
-
-  return res.json(info);
+  const info = await getImageInfo(imageBase64);
+  res.send(info);
 });
 
 app.use((req, res) => {

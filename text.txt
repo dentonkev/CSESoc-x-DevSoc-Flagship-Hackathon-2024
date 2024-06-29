@@ -1,1 +1,1 @@
-{"role":"assistant","content":"Food: Dried Apricots\nCalories: 241\nProtein: 3\nCarbohydrates: 63\nFat: 0\nSodium: 10\nSugars: 53\nServings: 1 cup\nHealth Rating (Out of 5): 4"}
+{"role":"assistant","content":"Food: Dried apricots\nCalories: 240\nProtein: 3g\nCarbohydrates: 63g\nFat: 0g\nSodium: 10mg\nSugars: 53g\nServings: 1 cup (130g)\nHealth Rating (Out of 5): 4"}
