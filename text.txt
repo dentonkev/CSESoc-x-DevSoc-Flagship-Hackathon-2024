@@ -1,1 +1,1 @@
-{"role":"assistant","content":"Food: Cheeseburger\nCalories: 300\nProtein: 15 g\nCarbohydrates: 33 g\nFat: 12 g\nSodium: 720 mg\nSugars: 7 g\nServings: 1\nHealth Rating (Out of 5): 2"}
+{"role":"assistant","content":"Food: Cheeseburger\nCalories: 300\nProtein: 15\nCarbohydrates: 33\nFat: 12\nSodium: 720\nSugars: 7\nServings: 1\nHealth Rating (Out of 5): 2"}

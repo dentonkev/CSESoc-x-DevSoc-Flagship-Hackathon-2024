@@ -1,24 +1,12 @@
 import dotenv from 'dotenv'
-import {promises as f } from 'fs'
 import fs from 'fs'
 import axios from 'axios'
-import convert from 'heic-convert';
+import { convertToObj, change } from './helper.js';
 
 dotenv.config();
 
 const openaiKey = process.env.API_KEY;
-const imagePath = "./images/las.png"
-
-async function change(path) {
-  const inputBuffer = await f.readFile(path);
-  const outputBuffer = await convert({
-    buffer: inputBuffer, 
-    format: 'PNG'      
-  });
-
-  await f.writeFile("./images/h.png", outputBuffer);
-  return "./images/h.png"
-};
+const imagePath = "./images/apricot.heic"
 
 // Function to encode the image
 const encodeImage = (p) => {
@@ -26,7 +14,7 @@ const encodeImage = (p) => {
   return image.toString('base64');
 };
 
-const path = change(imagePath);
+const path = await change(imagePath);
 const base64Image = encodeImage(path);
 
 const headers = {
@@ -43,7 +31,7 @@ const payload = {
         {
           type: "text",
           text: `
-                What food type is this and macros (just a number no ranges)? 
+                What food type is this and macros (just a number no ranges)?  If it is not a food, then return only the string "None"
 
                 response format: 
                 Food:
