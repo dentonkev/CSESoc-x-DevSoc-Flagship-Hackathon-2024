@@ -56,7 +56,7 @@ export default function App() {
       const base64Image = await getBase64FromUrl(photo.uri);
       
       try {      
-        axios.post('https://dark-ducks-feel.loca.lt/photo', { imageBase64: base64Image })
+        axios.post('https://rare-pens-sort.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
             if (Object.keys(response.data.message).length > 0) {
