@@ -26,7 +26,7 @@ app.get('/photo', (req, res) => {
 
   const info = getImageInfo(imageBase64);
 
-  return res.json(timetable);
+  return res.json(info);
 });
 
 app.use((req, res) => {
