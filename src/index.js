@@ -6,7 +6,8 @@ import { convertToObj, change } from './helper.js';
 dotenv.config();
 
 const openaiKey = process.env.API_KEY;
-const imagePath = "./images/apricot.heic"
+const imagePath = "./images/yo.heic"
+// /folder/subfolder/resource.png
 
 // Function to encode the image
 const encodeImage = (p) => {

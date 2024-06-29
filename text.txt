@@ -1,1 +1,1 @@
-{"role":"assistant","content":"Food: Cheeseburger\nCalories: 300\nProtein: 15\nCarbohydrates: 33\nFat: 12\nSodium: 720\nSugars: 7\nServings: 1\nHealth Rating (Out of 5): 2"}
+{"role":"assistant","content":"Food: Dried Apricots\nCalories: 241\nProtein: 3\nCarbohydrates: 63\nFat: 0\nSodium: 10\nSugars: 53\nServings: 1 cup\nHealth Rating (Out of 5): 4"}
