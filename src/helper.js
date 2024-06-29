@@ -32,12 +32,12 @@ export const change = async (path) => {
   });
 
   let opath= path.split('/')
-  console.log(opath)
+  // console.log(opath)
   let filename = opath[opath.length - 1]
-  console.log("1:" + filename)
+  // console.log("1:" + filename)
   let array = filename.split(".")
   let newPath = `./images/${array[0]}.jpeg`
-  console.log(newPath)
+  // console.log(newPath)
   await fs.writeFile(newPath, outputBuffer);
   return newPath
 };
