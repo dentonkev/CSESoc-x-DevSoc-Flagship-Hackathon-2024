@@ -33,20 +33,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="gallery"
         options={{
-          title: 'Profile',
+          title: 'Gallery',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="saved"
-        options={{
-          title: 'Saved',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'bookmark' : 'bookmark-outline'} color={color} />
+            <TabBarIcon name={focused ? 'images' : 'images-outline'} color={color} />
           ),
         }}
       />
