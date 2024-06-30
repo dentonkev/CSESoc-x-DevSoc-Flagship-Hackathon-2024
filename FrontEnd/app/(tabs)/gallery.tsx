@@ -41,7 +41,7 @@ export default function SavedScreen() {
   return (
     <ScrollView style={styles.container}>
       <ThemedView style={styles.header}>
-        <ThemedText type="title" style={styles.title}>Saved</ThemedText>
+        <ThemedText type="title" style={styles.title}>Gallery</ThemedText>
         <ThemedText type="link" style={styles.select}>Select</ThemedText>
       </ThemedView>
       <TextInput

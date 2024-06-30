@@ -59,7 +59,7 @@ export default function App() {
       setLoading(true); // Start loading indicator
 
       try {
-        axios.post('https://quick-trams-hope.loca.lt/photo', { imageBase64: base64Image })
+        axios.post('https://chilly-onions-invent.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
             setLoading(false); // Stop loading indicator
@@ -104,7 +104,7 @@ export default function App() {
     <View style={styles.container}>
       {loading && (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#C0C0C0" />
+          <ActivityIndicator size="large" color="black" />
         </View>
       )}
       {showCamera ? (
