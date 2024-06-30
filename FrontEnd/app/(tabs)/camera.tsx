@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import axios from 'axios';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useRef, useState } from 'react';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { NutritionCard } from '@/components/Card';
 import { BottomDrawer } from '@/components/BottomDrawer';
 
@@ -14,6 +14,7 @@ export default function App() {
   const cameraRef = useRef(null);
   const [nutritionData, setNutritionData] = useState(null);
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
   if (!permission) {
     // Camera permissions are still loading.
@@ -49,16 +50,19 @@ export default function App() {
 
   const takePicture = async () => {
     if (!cameraRef.current) return;
-  
+
     try {
       const photo = await cameraRef.current.takePictureAsync();
       setCapturedPhoto(photo.uri);
       const base64Image = await getBase64FromUrl(photo.uri);
-      
-      try {      
-        axios.post('https://rare-pens-sort.loca.lt/photo', { imageBase64: base64Image })
+
+      setLoading(true); // Start loading indicator
+
+      try {
+        axios.post('https://quick-trams-hope.loca.lt/photo', { imageBase64: base64Image })
           .then(response => {
             console.log('Response:', response.data);
+            setLoading(false); // Stop loading indicator
             if (Object.keys(response.data.message).length > 0) {
               setNutritionData(response.data.message);
               setDrawerVisible(true);
@@ -67,25 +71,29 @@ export default function App() {
               alert("Please take a picture of food.");
             }
           })
+          
           .catch(error => {
+            setLoading(false); // Stop loading indicator
             console.error('Error:', error);
           });
-      
+
       } catch (error) {
+        setLoading(false); // Stop loading indicator
         console.error('Error uploading the image:', error);
       }
       setShowCamera(false); // Hide camera view after capturing photo
     } catch (error) {
+      setLoading(false); // Stop loading indicator
       console.error('Failed to take picture:', error);
     }
   };
-  
 
   const retakePicture = () => {
     setCapturedPhoto(null); // Clear captured photo
     setShowCamera(true); // Show camera view again
     setNutritionData(null);
     setDrawerVisible(false);
+    setLoading(false);
   };
 
   const closeDrawer = () => {
@@ -94,6 +102,11 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#C0C0C0" />
+        </View>
+      )}
       {showCamera ? (
         <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
           <View style={styles.buttonContainer}>
@@ -114,7 +127,7 @@ export default function App() {
             <Text style={styles.retakeButtonText}>Take Another Photo</Text>
           </TouchableOpacity>
           <Image source={{ uri: capturedPhoto }} style={{ flex: 1 }} />
-          {nutritionData && ( 
+          {nutritionData && (
             <BottomDrawer height={300} isVisible={drawerVisible} onClose={closeDrawer}>
               <NutritionCard data={nutritionData} />
             </BottomDrawer>
@@ -147,16 +160,27 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   retakeButton: {
-  position: 'absolute',
-  top: 50,
-  left: 20,
-  backgroundColor: 'rgba(0, 0, 0, 0.5)', // Same as other buttons
-  borderRadius: 50,
-  padding: 15,
-  zIndex: 1,
-},
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 50,
+    padding: 15,
+    zIndex: 3,
+  },
   retakeButtonText: {
     color: 'white',
     textAlign: 'center',
+  },
+  loadingContainer: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 50,
+    width: 50,
+    zIndex: 2,
+    transform: [{ translateX: -25 }, { translateY: -25 }],
   },
 });
